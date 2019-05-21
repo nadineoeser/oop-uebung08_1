@@ -90,8 +90,8 @@ class Analysen {
 			if (s.getUhrzeit().equals("15:30:00")) {
 				toreNachmittag = toreNachmittag + s.getToreGast() + s.getToreHeim();
 				spieleNachmittag += 1;
-			}else {
-				// ansonsten Abend
+			}else if (s.getUhrzeit().compareTo("15:30:00") > 0){
+				// alle späteren sind abends
 				toreAbends = toreAbends + s.getToreHeim() + s.getToreGast();
 				spieleAbends += 1;
 			}
