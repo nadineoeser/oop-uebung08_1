@@ -1,6 +1,5 @@
 package ueb08;
 
-
 import java.io.IOException;
 import java.util.*;
 
@@ -110,27 +109,16 @@ class Analysen {
 	 * Stimmt es, dass Vereine der 3. Liga zuhause im Schnitt mehr Tore schießen als auswärts?
 	 */
 	static boolean torstatistikenToreDaheim() throws IOException {
-		Bundesliga bl = Bundesliga.loadFromResource();
+		int toreDaheim = 0;
+		int toreGast = 0;
 
-		int anzDaheim = 0;
-		int anzAuswaerts = 0;
-		int anzSpiele = 0;
-		for (Spiel s : bl.spiele) {
-			// 3. Liga: Vereine 37...56
-			if (s.getGast() <= 36)
-				continue;
-
-			anzDaheim += s.getToreHeim();
-			anzAuswaerts += s.getToreGast();
-			anzSpiele += 1;
+		for (Spiel spiel : Bundesliga.loadFromResource().spiele){
+			if (spiel.getHeim() > 36) {
+				toreDaheim += spiel.getToreHeim();
+				toreGast += spiel.getToreGast();
+			}
 		}
-
-		double td = (double) anzDaheim / anzSpiele;
-		double ta = (double) anzAuswaerts / anzSpiele;
-
-		System.out.println(td + " " + ta);
-
-		return td < ta;
+		return toreDaheim > toreGast;
 	}
 
 	/**
